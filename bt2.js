@@ -121,40 +121,116 @@ const listServers = [{
 // })
 
 // console.log(JSON.stringify(result))
-var listServiceMap = [];
+// var listServiceMap = [];
 
 
-function mapService(input) {
+// function mapService(input) {
 
-    if (input.length > 0) {
-        input.forEach(e => {
+//     if (input.length > 0) {
+//         input.forEach(e => {
 
-            var newServiceMap = {
-                id: e.id,
-                title: e.title,
-                connects: []
-            };
-            if (e.connects.length > 0) {
-                e.connects.forEach(id => {
+//             var newServiceMap = {
+//                 id: e.id,
+//                 title: e.title,
+//                 connects: []
+//             };
+//             if (e.connects.length > 0) {
+//                 e.connects.forEach(id => {
 
-                    var server = listServers.find((i) => i.id === id);
+//                     var server = listServers.find((i) => i.id === id);
 
-                    if (server !== undefined) {
-                        newServiceMap.connects.push(server);
-                    }
-                });
-            }
+//                     if (server !== undefined) {
+//                         newServiceMap.connects.push(server);
+//                     }
+//                 });
+//             }
 
-            listServiceMap.push(newServiceMap);
-        });
-    }
+//             listServiceMap.push(newServiceMap);
+//         });
+//     }
 
-    return listServiceMap;
-};
+//     return listServiceMap;
+// };
 
-function result() {
-    mapService(listServers);
-    console.log(JSON.stringify(listServiceMap));
-};
+// function result() {
+//     mapService(listServers);
+//     console.log(JSON.stringify(listServiceMap));
+// };
 
-result();
+// result();
+//  let result = listServers.reduce((acc,cur) =>{
+//    let arr=  acc.push(cur.connects);
+//      return {
+//          ...cur,
+//         connects:arr
+//      }
+//  },{});
+//  console.log(result);
+const objectSever = listServers.reduce((acc, cur) => {
+    acc[cur.id] = cur
+    return acc;
+
+}, {})
+// const ex1 = listServers.reduce((acc,cur) =>{
+//     const transform = cur.connects.map(e =>{
+//         return listServers.filter(el => el.id =e)
+//     })
+//     return {
+//         ...acc,
+//         connects:transform
+//     }
+// },{})
+// let ex2 = []
+// listServers.forEach(i => {
+//     const transform = i.connects.map(e => {
+//         return listServers.find(el => el.id = e)
+//     })
+//     ex2.push({
+//         ...i,
+//         connects: transform
+//     })
+//     return ex2
+
+// })
+// let ex3 = listServers.reduce((acc,cur) =>{
+//     const transform  = cur.connects.map(e => objectSever[e])
+//     acc.push({
+//         ...cur,
+//         connects:transform
+//     })
+//     return acc;
+// },[])
+// let ex4 = [];
+//   listServers.forEach(e =>{
+//     const transform = e.connects.forEach((el) =>{
+//     return listServers.find(i => i.id == el)
+        
+//     });
+//     ex4.push({
+//         ...e,
+//         connects:transform
+//     })
+//     return ex4
+// })
+// let ex5 = listServers.reduce((acc,cur) =>{
+//     const transform = cur.connects.forEach(e =>{
+//         return listServers.find(i => i.id == e)
+//     });
+//     acc.push({
+//         ...cur,
+//         connects: transform
+//     })
+//     return acc;
+// },[])
+let ex6= [];
+for (const key of listServers) {
+    const transform = key.connects.map(e =>{
+        return listServers.find(i => i.id == e)
+    });
+  ex6.push({
+        ...key,
+        connects:transform
+    })
+  
+}
+  console.log(JSON.stringify(ex6) );
